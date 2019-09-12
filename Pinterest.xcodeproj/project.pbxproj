@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3AF27757232A44AD005AB478 /* PinterestLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF27756232A44AD005AB478 /* PinterestLayout.swift */; };
 		77B260E61F2E74F7003A383F /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B260DD1F2E73F7003A383F /* Photo.swift */; };
 		77B260E71F2E74F7003A383F /* PhotoStreamViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B260E11F2E73F7003A383F /* PhotoStreamViewController.swift */; };
 		77B260E81F2E74F7003A383F /* AnnotatedPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77B260DF1F2E73F7003A383F /* AnnotatedPhotoCell.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3AF27756232A44AD005AB478 /* PinterestLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinterestLayout.swift; sourceTree = "<group>"; };
 		77B260DD1F2E73F7003A383F /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		77B260DF1F2E73F7003A383F /* AnnotatedPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotatedPhotoCell.swift; sourceTree = "<group>"; };
 		77B260E11F2E73F7003A383F /* PhotoStreamViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoStreamViewController.swift; sourceTree = "<group>"; };
@@ -46,6 +48,7 @@
 		77995C7A1F40C92500AF30AF /* Layouts */ = {
 			isa = PBXGroup;
 			children = (
+				3AF27756232A44AD005AB478 /* PinterestLayout.swift */,
 			);
 			path = Layouts;
 			sourceTree = "<group>";
@@ -207,6 +210,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AF27757232A44AD005AB478 /* PinterestLayout.swift in Sources */,
 				77B260E71F2E74F7003A383F /* PhotoStreamViewController.swift in Sources */,
 				77B260E61F2E74F7003A383F /* Photo.swift in Sources */,
 				7B0AC7BC1AAEF90000885D4A /* AppDelegate.swift in Sources */,
