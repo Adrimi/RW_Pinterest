@@ -55,18 +55,68 @@ class PinterestLayout: UICollectionViewLayout {
   
   // MARK: - Methods
   // Whenever a layout operation is about to take place, UIKit calls this method. It’s your opportunity to prepare and perform any calculations required to determine the collection view’s size and the positions of the items.
+  // To be sure, prepare() function can be launched while changing of UICollectionView bounds, in case of "rotation" of the device or adding/removing items for example. Then, it is crucial to recalculate values!!!
   override func prepare() {
-    <#code#>
+    
+    // calculate the layout attributes if cache is empty and the collection view exists.
+    guard cache.isEmpty, let collectionView = collectionView else { return }
+    
+    let columnWidth = contentWidth / CGFloat(numberOfColumns)
+    var xOffset: [CGFloat] = []
+    
+    for column in 0..<numberOfColumns {
+      xOffset.append(CGFloat(column) * columnWidth)
+    }
+    
+    // initialize each value in yOffset to 0, since this is the offset of the first item in each column.
+    var column = 0
+    var yOffset: [CGFloat] = .init(repeating: 0, count: numberOfColumns)
+    
+    // Loop through all the items in the first section since this particular layout has only one section.
+    for item in 0..<collectionView.numberOfItems(inSection: 0) {
+      let indexPath = IndexPath(item: item, section: 0)
+      
+      let photoHeigth = delegate?.collectionView(collectionView, heigthForPhotoAtIndex: indexPath) ?? 180
+      
+      let heigth = cellPadding * 2 + photoHeigth
+      let frame = CGRect(x: xOffset[column], y: yOffset[column], width: columnWidth, height: heigth)
+      let insetFrame = frame.insetBy(dx: cellPadding, dy: cellPadding)
+      
+      // setting layout from calculated values
+      let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+      attributes.frame = insetFrame
+      
+      // save changes for reusing, to ommit unnecessary calculation and reduca CPU usage
+      cache.append(attributes)
+      
+      // Expand contentHeight to account for the frame of the newly calculated item. Then, advance the yOffset for the current column based on the frame.
+      contentHeight = max(contentHeight, frame.maxY)
+      yOffset[column] = yOffset[column] + heigth
+      
+      // Finally, advance the column so the next item will be placed in the next column.
+      column = column < (numberOfColumns - 1) ? (column + 1) : 0
+      
+    }
   }
   
   // In this method, you return the layout attributes for all items inside the given rectangle. You return the attributes to the collection view as an array of UICollectionViewLayoutAttributes.
+  // This method will be called after prepare(), to ensure, what elements are currently visible in the given rectangle
   override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-    <#code#>
+    var visibleLayoutAttributes: [UICollectionViewLayoutAttributes] = []
+    
+    // loop through the cache and look for items in the rectangle
+    for attribute in cache {
+      if attribute.frame.intersects(rect) {
+        visibleLayoutAttributes.append(attribute)
+      }
+    }
+    
+    return visibleLayoutAttributes
   }
   
   // This method provides on demand layout information to the collection view. You need to override it and return the layout attributes for the item at the requested indexPath.
   override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-    <#code#>
+    return cache[indexPath.item]
   }
   
 }
